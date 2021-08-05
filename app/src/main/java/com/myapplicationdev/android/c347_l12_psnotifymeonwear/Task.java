@@ -2,38 +2,44 @@ package com.myapplicationdev.android.c347_l12_psnotifymeonwear;
 
 import java.io.Serializable;
 
-public class Task implements Serializable {
-    private int id;
-    private String taskName;
-    private String description;
+class Task implements Serializable {
 
-    public Task(int id, String taskName, String description) {
+    private int id;
+    private String name;
+    private String desc;
+
+    public Task(int id, String name, String desc){
         this.id = id;
-        this.taskName = taskName;
-        this.description = description;
+        this.desc = desc;
+        this.name = name;
     }
 
-    public int getId() {
+    public String getName() {
+        return name;
+    }
+
+    public int getId(){
         return id;
     }
 
-    public void setId(int id) {
+    public String getDesc(){
+        return desc;
+    }
+
+    public  void setId(int id){
         this.id = id;
     }
 
-    public String getTaskName() {
-        return taskName;
+    public void  setDesc(String desc){
+        this.desc = desc;
     }
 
-    public void setTaskName(String taskName) {
-        this.taskName = taskName;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
+    @Override
+    public String toString() {
+        return id + "\n" + desc + "\n" + name;
     }
 }

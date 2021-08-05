@@ -5,41 +5,15 @@
     android:orientation="vertical"
     android:padding="10dp">
 
-    <RelativeLayout
+    <TextView
+        android:id="@+id/tv1"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        android:text="TextView" />
 
-        <TextView
-            android:id="@+id/tvID"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
-            android:layout_marginTop="10dp"
-            android:text="ID"
-            android:textSize="18dp" />
-
-        <TextView
-            android:id="@+id/tvTaskName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="50dp"
-            android:layout_marginTop="10dp"
-            android:text="Task Name"
-            android:textSize="18dp" />
-
-
-        <TextView
-            android:id="@+id/tvDesc"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/tvID"
-            android:layout_marginLeft="20dp"
-            android:text="Description"
-            android:textSize="18dp"
-            android:layout_marginStart="20dp" />
-
-
-    </RelativeLayout>
-
-
+    <TextView
+        android:id="@+id/tv2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="TextView" />
 </LinearLayout>

@@ -1,7 +1,5 @@
 package com.myapplicationdev.android.c347_l12_psnotifymeonwear;
 
-import android.annotation.SuppressLint;
-import android.app.PendingIntent;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.ArrayAdapter;
@@ -9,63 +7,41 @@ import android.widget.Button;
 import android.widget.ListView;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.NotificationCompat;
-import androidx.core.app.RemoteInput;
 
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
-    Button btnAdd;
-    ListView listView;
-    ArrayAdapter arrayAdapter;
-    ArrayList<Task> tasks;
-    Intent intent , intentReply;
-    PendingIntent pendingIntentReply;
+    ListView lvTask;
+    Button btnAddTask;
+    ArrayAdapter aa;
+    ArrayList<Task> taskList;
 
-    RemoteInput remoteInput;
-    @SuppressLint("UnspecifiedImmutableFlag")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        btnAdd = findViewById(R.id.btnAdd);
-        listView = findViewById(R.id.lv);
+        lvTask = findViewById(R.id.lvTask);
+        btnAddTask = findViewById(R.id.btnAddTask);
 
-        DBHelper dbHelper = new DBHelper(MainActivity.this);
-        tasks = dbHelper.getAllTask();
-        dbHelper.close();
-
-        arrayAdapter = new ListAdapter(this, R.layout.row, tasks);
-        listView.setAdapter(arrayAdapter);
-
-        btnAdd.setOnClickListener(view -> {
-            intent = new Intent(MainActivity.this, AddActivity.class);
-            startActivity(intent);
+        btnAddTask.setOnClickListener(v -> {
+            Intent i = new Intent(MainActivity.this, AddActivity.class);
+            startActivity(i);
         });
 
-         intentReply = new Intent(MainActivity.this,
-                ReplyActivity.class);
-         pendingIntentReply = PendingIntent.getActivity
-                (MainActivity.this, 0, intentReply,
-                        PendingIntent.FLAG_UPDATE_CURRENT);
+    }
 
-         remoteInput = new RemoteInput.Builder("status")
-                .setLabel("Status report")
-                .setChoices(new String[]{"Done", "Not yet"})
-                .build();
+    @Override
+    protected void onResume() {
+        super.onResume();
+        taskList = new ArrayList<>();
 
-        NotificationCompat.Action action2 = new
-                NotificationCompat.Action.Builder(
-                R.mipmap.ic_launcher,
-                "Reply",
-                pendingIntentReply)
-                .addRemoteInput(remoteInput)
-                .build();
+        DBHelper dbh = new DBHelper(MainActivity.this);
+        taskList.addAll(dbh.getAllTasks());
+        dbh.close();
 
-        NotificationCompat.WearableExtender extender = new
-                NotificationCompat.WearableExtender();
-        extender.addAction(action2);
+        aa = new TaskAdapter(MainActivity.this, R.layout.row, taskList);
+        lvTask.setAdapter(aa);
     }
 }
