@@ -39,12 +39,11 @@ public class DBHelper extends SQLiteOpenHelper {
     }
 
 
-
     public ArrayList<Task> getAllTask() {
         ArrayList<Task> tasks = new ArrayList<Task>();
 
         String selectQuery = "SELECT " + COLUMN_ID + ","
-                + COLUMN_TASKNAME + "," + COLUMN_DESC  + " FROM " + TABLE_TASK;
+                + COLUMN_TASKNAME + "," + COLUMN_DESC + " FROM " + TABLE_TASK;
 
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);
@@ -53,7 +52,7 @@ public class DBHelper extends SQLiteOpenHelper {
                 int id = cursor.getInt(0);
                 String taskName = cursor.getString(1);
                 String taskDesc = cursor.getString(2);
-                Task task = new Task(id,taskName, taskDesc);
+                Task task = new Task(id, taskName, taskDesc);
                 tasks.add(task);
             } while (cursor.moveToNext());
         }
@@ -68,12 +67,12 @@ public class DBHelper extends SQLiteOpenHelper {
         values.put(COLUMN_TASKNAME, taskName);
         values.put(COLUMN_DESC, desc);
         long result = db.insert(TABLE_TASK, null, values);
-        if (result == -1){
+        if (result == -1) {
             Log.d("DBHelper", "Insert failed");
         }
 
         db.close();
-        Log.d("SQL Insert","ID:"+ result); //id returned, shouldn’t be -1
+        Log.d("SQL Insert", "ID:" + result); //id returned, shouldn’t be -1
         return result;
     }
 }

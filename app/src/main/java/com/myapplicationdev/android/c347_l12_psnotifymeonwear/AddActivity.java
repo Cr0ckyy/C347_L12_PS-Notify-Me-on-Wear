@@ -1,5 +1,6 @@
 package com.myapplicationdev.android.c347_l12_psnotifymeonwear;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
@@ -44,7 +45,7 @@ public class AddActivity extends AppCompatActivity {
                 Intent i = new Intent(AddActivity.this, ScheduledNotificationReceiver.class);
                 int reqCode = 12345;
                 i.putExtra("name", taskName);
-                PendingIntent pendingIntent = PendingIntent.getBroadcast(AddActivity.this, reqCode,
+                @SuppressLint("UnspecifiedImmutableFlag") PendingIntent pendingIntent = PendingIntent.getBroadcast(AddActivity.this, reqCode,
                         i, PendingIntent.FLAG_CANCEL_CURRENT);
 
                 AlarmManager am = (AlarmManager) getSystemService(Activity.ALARM_SERVICE);

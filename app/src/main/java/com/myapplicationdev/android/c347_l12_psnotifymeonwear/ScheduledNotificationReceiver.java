@@ -1,5 +1,6 @@
 package com.myapplicationdev.android.c347_l12_psnotifymeonwear;
 
+import android.annotation.SuppressLint;
 import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
@@ -13,6 +14,8 @@ import androidx.core.app.NotificationCompat;
 
 public class ScheduledNotificationReceiver extends BroadcastReceiver {
     int reqCode = 1234;
+    Intent intent1;
+    Notification notification;
 
     @Override
     public void onReceive(Context context, Intent intent) {
@@ -28,22 +31,23 @@ public class ScheduledNotificationReceiver extends BroadcastReceiver {
             notificationManager.createNotificationChannel(channel);
         }
 
-        Intent i = new Intent(context, MainActivity.class);
-        PendingIntent pIntent = PendingIntent.getActivity(context, reqCode, i, PendingIntent.FLAG_CANCEL_CURRENT);
+        intent1 = new Intent(context, MainActivity.class);
+        @SuppressLint("UnspecifiedImmutableFlag") PendingIntent pIntent = PendingIntent.getActivity(context, reqCode, intent1, PendingIntent.FLAG_CANCEL_CURRENT);
 
 
-        NotificationCompat.BigPictureStyle picStyle = new NotificationCompat.BigPictureStyle();
+        NotificationCompat.BigPictureStyle bigPictureStyle = new NotificationCompat.BigPictureStyle();
 
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(context, "default");
-        builder.setContentTitle("Task");
-        builder.setContentText(taskName);
-        builder.setSmallIcon(android.R.drawable.ic_dialog_info);
-        builder.setStyle(picStyle);
-        builder.setContentIntent(pIntent);
-        builder.setAutoCancel(true);
 
-        Notification n = builder.build();
-        notificationManager.notify(123, n);
+        NotificationCompat.Builder NotificationBuilder = new NotificationCompat.Builder(context, "default");
+        NotificationBuilder.setContentTitle("Task");
+        NotificationBuilder.setContentText(taskName);
+        NotificationBuilder.setSmallIcon(android.R.drawable.ic_dialog_info);
+        NotificationBuilder.setStyle(bigPictureStyle);
+        NotificationBuilder.setContentIntent(pIntent);
+        NotificationBuilder.setAutoCancel(true);
+
+        notification = NotificationBuilder.build();
+        notificationManager.notify(123, notification);
 
     }
 }

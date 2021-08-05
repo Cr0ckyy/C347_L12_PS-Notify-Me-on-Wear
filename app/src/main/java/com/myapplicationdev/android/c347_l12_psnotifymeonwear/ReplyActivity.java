@@ -8,15 +8,18 @@ import android.os.Bundle;
 import android.widget.Toast;
 
 public class ReplyActivity extends AppCompatActivity {
+    CharSequence reply;
+    Intent intent;
+    Bundle remoteInput;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reply);
 
-        CharSequence reply = null;
-        Intent intent = getIntent();
-        Bundle remoteInput = RemoteInput.getResultsFromIntent(intent);
+        reply = null;
+        intent = getIntent();
+        remoteInput = RemoteInput.getResultsFromIntent(intent);
         if (remoteInput != null) {
             reply = remoteInput.getCharSequence("status");
         }
